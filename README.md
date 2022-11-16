@@ -1,4 +1,4 @@
-# **Tugas 5: Elemen Dasar Flutter**
+# **Tugas 7: Elemen Dasar Flutter**
 
 **Nama   : Alia Widyanita Puspaningrum**
 
@@ -7,6 +7,8 @@
 **Kelas  : B**
 
 #
+
+# **counter_7**
 
 ## Stateless Widget dan Stateful Widget
 
@@ -60,3 +62,43 @@ Oleh karena itu, `setState()` hanya dipanggil saat state dari widget berubah, ya
 6. Apabila hasil modulo counter dengan 2 sama dengan nol atau angka tersebut genap, maka akan menampilkan teks "GENAP" bewarna merah.
 7. Dikarena hasil modulo 0 dengan 2 adalah 0, teks yang akan ditampilkan adalah "GENAP".
 8. Apabila nilai counter adalah 0, maka tombol yang ditampilkan hanya tombol + dan menghilangkan tombol - dengan menggunakan widget _visibility_. Namun, jika counter tidak sama dengan 0 maka kedua tombol + dan tombol - akan ditampilkan.
+
+#
+
+# **Tugas 8: Flutter Form**
+
+# **Tambah Budget & Data Budget**
+
+## Perbedaan `Navigator.push` dan `Navigator.pushReplacement`
+
+`Navigator.push` menambahkan satu halaman ke _stack navigator_, sedangkan `Navigator.pushReplacement` mengubah halaman ke halaman yang dituju oleh _button_.
+
+## Widget yang Dipakai dan Fungsinya
+
+**Drawers** : Bekerja sebagai _navigator_
+
+**Scaffold** : Menampung beberapa material di dalamnya
+
+**Container** : Menampung beberapa widget di dalamnya
+
+**Card** : Mengatur _layout_ dari widget
+
+**Drop Down** : Merupakan widget untuk memilih tipe budget seperti sebuah _list_
+
+## Jenis _event_ yang ada pada Flutter
+
+**onPressed** : Bekerja saat button di tekan
+**onChanged** : Bekerja saat field input diubah
+**onSaved** : Bekerja saat form di simpan
+**onLongPress** : Bekerja saat button di tekan lama
+
+## Cara kerja `Navigator` dalam "mengganti" halaman
+
+The navigator changed the page by change the order of the page stack by pushing the new page to the top. returning to the pervious page happens by popping the stack
+
+## Implementasi Checklist
+
+1. Membuah drawer menu untuk halaman counter, halaman form tambah budget, dan halaman tampilan data budget pada file main dan menambahkannya ke file-file lain.
+2. Membuat file models untuk menyimpan data dalam sebuah list dan class budget untuk menunjukkan bagaimana daftar harus diformat.
+3. Membuat field input dan field drop down pada halaman form tambah budget serta button untuk menyimpan input user tersebut dan menambahkannya ke dalam list.
+4. Membuat halaman tampilan data budget yang menampilkan semua data dengan memetakan data dalam list budget ke dalam widget _card_.
