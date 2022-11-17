@@ -98,7 +98,8 @@ The navigator changed the page by change the order of the page stack by pushing 
 
 ## Implementasi Checklist
 
-1. Membuah drawer menu untuk halaman counter, halaman form tambah budget, dan halaman tampilan data budget pada file main dan menambahkannya ke file-file lain.
+1. Membuah file drawer menu untuk halaman counter, halaman form tambah budget, dan halaman tampilan data budget dan memanggilnya di file-file lain.
 2. Membuat file models untuk menyimpan data dalam sebuah list dan class budget untuk menunjukkan bagaimana daftar harus diformat.
 3. Membuat field input dan field drop down pada halaman form tambah budget serta button untuk menyimpan input user tersebut dan menambahkannya ke dalam list.
 4. Membuat halaman tampilan data budget yang menampilkan semua data dengan memetakan data dalam list budget ke dalam widget _card_.
+5. Menerapkan bonus dengan memisahkan widget drawer serta menambahkan date picker dan menampilkannya pada halaman data budget.

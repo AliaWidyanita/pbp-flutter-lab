@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:counter_7/main.dart';
+import 'package:counter_7/drawer.dart';
 import 'package:counter_7/models.dart';
 import 'package:counter_7/data_budget.dart';
 
@@ -8,156 +9,118 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyFormPage extends StatefulWidget {
-  const MyFormPage({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  State<MyFormPage> createState() => _MyFormPageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Tambah Budget',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const AddBudgetPage(title: 'Tambah Budget'),
+    );
+  }
 }
 
-class _MyFormPageState extends State<MyFormPage> {
+class AddBudgetPage extends StatefulWidget {
+  const AddBudgetPage({super.key, required this.title});
+  final String title;
+  @override
+  State<AddBudgetPage> createState() => _AddBudgetPageState();
+}
+
+class _AddBudgetPageState extends State<AddBudgetPage> {
   final _formKey = GlobalKey<FormState>();
-  String _title = "";
-  int _budget = 0;
-  String _type = 'Expense';
-  final List<String> listBudgetType = ['Pemasukan', 'Pengeluaran'];
+  String _judul = "";
+  int _nominal = 0;
+  String? _tipe;
+  final List<String> _listJenis = ['Pemasukan', 'Pengeluaran'];
+  DateTime date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form'),
+        title: Text('Form Budget'),
       ),
       // Menambahkan drawer menu
-      drawer: Drawer(
-        child: Column(
-          children: [
-            // Menambahkan clickable menu
-            ListTile(
-              title: const Text('Counter'),
-              onTap: () {
-                // Route menu ke halaman utama
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Tambah Budget'),
-              onTap: () {
-                // Route menu ke halaman form
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyFormPage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Data Budget'),
-              onTap: () {
-                // Route menu ke halaman tampilan data
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyDataPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const ListDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: Column(
-            children: [
-              Padding(
-              // Using padding of 8 pixels
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Judul",
-                    // Add icons to make it more intuitive
-                  icon: const Icon(Icons.account_circle_outlined),
-                  // Added a circular border to make it neater
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                // Added behavior when name is typed
-                onChanged: (String? value) {
-                  setState(() {
-                    _title = value!;
-                  });
-                },
-                // Added behavior when data is saved
-                onSaved: (String? value) {
-                  setState(() {
-                    _title = value!;
-                  });
-                },
-                // Validator as form validation
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Judul tidak bisa kosong!';
-                  }
-                  return null;
-                },
-              ),
-              ),
-              Padding(
-                // Using padding of 8 pixels
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Nominal",
-                    // Add icons to make it more intuitive
-                    icon: const Icon(Icons.account_balance_wallet_outlined),
-                    // Added a circular border to make it neater
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Judul",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                     ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _judul = value!;
+                      });
+                    },
+                    onSaved: (String? value) {
+                      setState(() {
+                        _judul = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Judul tidak boleh kosong!';
+                      }
+                      return null;
+                    },
                   ),
-                  // Added behavior when budget is typed
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-                ],
-                  onChanged: (String? value) {
-                    setState(() {
-                      if (value! != '') {
-                        _budget = int.parse(value!);
-                      }
-                    });
-                  },
-                  // Added behavior when data is saved
-                  onSaved: (String? value) {
-                    setState(() {
-                      if (value! != '') {
-                        _budget = int.parse(value!);
-                      }
-                    });
-                  },
-                  // Validator as form validation
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Nominal tidak bisa kosong!';
-                    }
-                    return null;
-                  },
                 ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.class_),
-                title: const Text(
-                  'Budget Type',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Nominal",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    onChanged: (String? value) {
+                      setState(() {
+                        _nominal = int.parse(value!);
+                      });
+                    },
+                    onSaved: (String? value) {
+                      setState(() {
+                        _nominal = int.parse(value!);
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Nominal tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-                trailing: DropdownButton(
-                  value: _type,
+                DropdownButton(
+                  value: _tipe,
                   icon: const Icon(Icons.keyboard_arrow_down),
-                  items: listBudgetType.map((String items) {
+                  hint: const Text("Pilih jenis"),
+                  items: _listJenis.map((String items) {
                     return DropdownMenuItem(
                       value: items,
                       child: Text(items),
@@ -165,37 +128,59 @@ class _MyFormPageState extends State<MyFormPage> {
                   }).toList(),
                   onChanged: (String? value) {
                     setState(() {
-                      _type = value!;
+                      _tipe = value ?? "";
                     });
                   },
-                  // validator: (String? value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please choose an option!';
-                  //   }
-                  //   return null;
-                  // },
                 ),
-              ),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 8),
+                    Text(
+                      '${date.day}/${date.month}/${date.year}',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        DateTime? newDate = await showDatePicker(
+                          context: context,
+                          initialDate: date,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                        );
+
+                        setState(() {
+                          date = newDate!;
+                        });
+                      },
+                      child: const Text('Pilih tanggal'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all(Colors.blue),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          budgetData.add(Budget(_judul, _nominal, _tipe!,
+                          '${date.day}/${date.month}/${date.year}'));
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Budget berhasil ditambah!"),
+                          ));
+                        }
+                      },
+                      child: const Text(
+                        "Simpan",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    BudgetList.data.add(Budget(
-                      title: _title,
-                      amount: _budget,
-                      type: _type,
-                    ));
-                  }
-                },
-                child: const Text("Save", style: TextStyle(color: Colors.white),
-              ),
+              ],
             ),
-          ],
           ),
-          ),
-          ),
+        ),
       ),
     );
   }
