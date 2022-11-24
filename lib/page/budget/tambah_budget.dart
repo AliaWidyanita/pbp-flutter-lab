@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:counter_7/main.dart';
-import 'package:counter_7/drawer.dart';
-import 'package:counter_7/models.dart';
-import 'package:counter_7/data_budget.dart';
+import 'package:counter_7/model/models.dart';
+import 'package:counter_7/page/drawer.dart';
+import 'package:counter_7/page/budget/data_budget.dart';
 
 void main() {
   runApp(const MyApp());

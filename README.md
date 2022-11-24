@@ -103,3 +103,42 @@ The navigator changed the page by change the order of the page stack by pushing 
 3. Membuat field input dan field drop down pada halaman form tambah budget serta button untuk menyimpan input user tersebut dan menambahkannya ke dalam list.
 4. Membuat halaman tampilan data budget yang menampilkan semua data dengan memetakan data dalam list budget ke dalam widget _card_.
 5. Menerapkan bonus dengan memisahkan widget drawer serta menambahkan date picker dan menampilkannya pada halaman data budget.
+
+#
+
+# **Tugas 9: Integrasi Web Service pada Flutter**
+
+# **Tambah My Watch List**
+
+##  Pengambilan data JSON tanpa membuat model terlebih dahulu. Jika hal tersebut lebih baik.
+
+Ya, namun, sebaiknya membuat model terlebih dahulu agar data yang diambil sesuai dan memiliki struktur yang baik sehingga meminimalisir kesalahan pengambilan data.
+
+## Widget yang Dipakai dan Fungsinya
+
+**Card** : Widget untuk membuat suatu rounded corner box dengan elevasi
+
+**Spacer** : Widget untuk memakan empty space dan memberi jarak antar widget
+
+**Checkbox** : Widget untuk membuat checkbox
+
+**FutureBuilder** : Widget untuk melakukan update child berdasarkan hasil future yang diberikan
+
+**ListView** : Widget untuk membangun suatu kumpulan anakan widget berdasarkan jumlah item
+
+**ListTile** = Widget baris yang berisi text dan icon
+
+**SizedBox** = Widget yang membuat size yang fix
+
+## Mekanisme Pengambilan Data dari Json
+
+Membuat model sesuai dengan data yang akan ditampilkan. Menambahkan depedensi http. Membuat fungsi http request menggunakan method get. Melakukan http request. Menampilkan data menggunakan `futurebuilder`.
+
+## Implementasi Checklist
+
+1. Menambahkan page mywatchlist pada drawer.dart
+2. Membuat model untuk watchlist dan fetch json
+3. Menambahkan kode akses internet ke file AndroidManifest.xml
+4. Membuat page untuk mywatchlist
+5. Menambahkan file mywatchlist_detail yang berisi tampilan detail dari data json watchlist
+6. Menambahkan bonus 
